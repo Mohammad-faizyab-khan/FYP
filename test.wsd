@@ -1,0 +1,55 @@
+@startuml
+skinparam class {
+  BackgroundColor White
+  BorderColor Black
+  RoundCorner 15
+}
+
+class User {
+  +UserID: int
+  +Name: String
+  +Email: String
+}
+
+class Image {
+  +ImageID: int
+  +FileName: String
+  +FilePath: String
+  +UploadDate: Date
+}
+
+class Analysis {
+  +AnalysisID: int
+  +ImageID: int
+  +AnalysisDate: Date
+  +Method: String
+  +Result: String
+}
+
+class Report {
+  +ReportID: int
+  +AnalysisID: int
+  +GeneratedDate: Date
+  +Content: String
+}
+
+class SteganographyAlgorithm {
+  +AlgorithmID: int
+  +Name: String
+  +Description: String
+}
+
+class Feedback {
+  +FeedbackID: int
+  +UserID: int
+  +Content: String
+  +Date: Date
+}
+
+User "1" -- "0..*" Image : uploads >
+Image "1" -- "0..*" Analysis : < analyzed by
+Analysis "1" -- "0..1" Report : generates >
+User "1" -- "0..*" Feedback : gives >
+Analysis "1" -- "0..*" SteganographyAlgorithm : uses >
+
+@enduml
